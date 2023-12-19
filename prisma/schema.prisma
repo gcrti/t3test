@@ -14,9 +14,9 @@ datasource db {
 model Post {
     id        Int      @id @default(autoincrement())
     content   String @db.VarChar(255)
-    authorId  Int
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    authorId  String @db.VarChar(255)
+    createdAt DateTime @default(dbgenerated("NOW()")) @db.DateTime
+    updatedAt DateTime @db.DateTime @default(dbgenerated("NOW() ON UPDATE NOW()"))
 
     @@index([authorId])
 }
