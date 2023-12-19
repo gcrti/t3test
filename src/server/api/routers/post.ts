@@ -58,7 +58,7 @@ export const postRouter = createTRPCRouter({
     return posts.map((post) => {
       const author = users.find((user) => user.id === post.authorId);
 
-      if (!author || !author.username)
+      if (!author?.username)
         throw new TRPCError({
           message: "Autor da postagem não encontrado",
           code: "INTERNAL_SERVER_ERROR",
@@ -78,7 +78,7 @@ export const postRouter = createTRPCRouter({
 
       const { success } = await rateLimit.limit(authorId);
 
-      if(!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
+      if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
 
       const post = await ctx.db.post.create({
         data: {
