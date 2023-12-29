@@ -5,6 +5,7 @@ import { api } from "~/utils/api";
 import { db } from "~/server/db";
 import superjson from "superjson";
 import type { GetStaticProps, NextPage } from "next";
+import Image from "next/image";
 import { PageLayout } from "~/components/layout";
 
 const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
@@ -19,9 +20,16 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
         <title>{data.username}</title>
       </Head>
       <PageLayout>
-        <main className="flex h-screen justify-center">
-          <div className="">{data.username}</div>
-        </main>
+        <div className="border-b border-slate-400 bg-slate-600">
+          <Image
+            src={data.imageUrl}
+            alt={`Imagem de Perfil`}
+            width={48}
+            height={48}
+            className="-mb-2"
+          />
+          <div>{data.username}</div>
+        </div>
       </PageLayout>
     </>
   );
